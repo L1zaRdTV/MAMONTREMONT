@@ -1,0 +1,243 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Мамонт ремонт";
+}
+
+<section class="hero-section">
+    <div class="hero-text">
+        <p class="small-title">Ремонт квартир под ключ</p>
+        <h1>Мамонт ремонт</h1>
+        <p class="hero-description">
+            Делаем аккуратный ремонт квартир: от черновых работ до чистовой отделки.
+            Помогаем превратить обычное помещение в удобное и красивое жилье.
+        </p>
+        <div class="hero-buttons">
+            <a class="main-button" href="#works">Посмотреть работы</a>
+            <a class="second-button" href="#contacts">Связаться</a>
+        </div>
+    </div>
+</section>
+
+<section class="info-section" id="about">
+    <div>
+        <p class="small-title">О компании</p>
+        <h2>Надежная команда для ремонта квартиры</h2>
+        <p>
+            Компания “Мамонт ремонт” занимается отделкой квартир и помогает клиентам
+            получить понятный результат без лишней суеты. Мы заранее обсуждаем этапы,
+            материалы и сроки, чтобы ремонт был предсказуемым.
+        </p>
+    </div>
+    <div class="stats">
+        <div>
+            <strong>7+</strong>
+            <span>лет опыта</span>
+        </div>
+        <div>
+            <strong>120+</strong>
+            <span>выполненных ремонтов</span>
+        </div>
+        <div>
+            <strong>1</strong>
+            <span>ответственный мастер на объекте</span>
+        </div>
+    </div>
+</section>
+
+<section class="section-block" id="works">
+    <div class="section-heading">
+        <p class="small-title">Наши работы</p>
+        <h2>Примеры выполненных ремонтов</h2>
+    </div>
+
+    <div class="work-grid">
+        <article class="work-card">
+            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80" alt="Ремонт кухни">
+            <div>
+                <h3>Кухня в современном стиле</h3>
+                <p>Выравнивание стен, укладка плитки, монтаж освещения и установка кухонной зоны.</p>
+            </div>
+        </article>
+        <article class="work-card">
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80" alt="Ремонт ванной комнаты">
+            <div>
+                <h3>Ванная комната</h3>
+                <p>Плиточные работы, сантехника, влагостойкие материалы и аккуратная чистовая отделка.</p>
+            </div>
+        </article>
+        <article class="work-card">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80" alt="Ремонт гостиной">
+            <div>
+                <h3>Гостиная после ремонта</h3>
+                <p>Покраска стен, напольное покрытие, плинтусы и подготовка комнаты к заселению.</p>
+            </div>
+        </article>
+    </div>
+</section>
+
+<section class="section-block" id="services">
+    <div class="section-heading">
+        <p class="small-title">Услуги</p>
+        <h2>Что мы делаем</h2>
+    </div>
+
+    <div class="service-grid">
+        <div class="service-item">
+            <h3>Черновая отделка</h3>
+            <p>Демонтаж, штукатурка, стяжка пола, подготовка стен и потолков.</p>
+        </div>
+        <div class="service-item">
+            <h3>Чистовая отделка</h3>
+            <p>Покраска, обои, ламинат, плитка, плинтусы и финальные работы.</p>
+        </div>
+        <div class="service-item">
+            <h3>Сантехника и электрика</h3>
+            <p>Замена труб, установка розеток, светильников и сантехнического оборудования.</p>
+        </div>
+        <div class="service-item">
+            <h3>Ремонт под ключ</h3>
+            <p>Полный комплекс работ от первой встречи до готовой квартиры.</p>
+        </div>
+    </div>
+</section>
+
+<section class="steps-section">
+    <div class="section-heading">
+        <p class="small-title">Этапы</p>
+        <h2>Как проходит работа</h2>
+    </div>
+
+    <div class="steps">
+        <div><span>1</span> Осмотр квартиры и обсуждение задачи</div>
+        <div><span>2</span> Расчет стоимости и подбор материалов</div>
+        <div><span>3</span> Выполнение ремонта по этапам</div>
+        <div><span>4</span> Уборка и сдача готовой работы</div>
+    </div>
+</section>
+
+<section class="calculator-section" id="calculator">
+    <div class="section-heading">
+        <p class="small-title">Калькулятор</p>
+        <h2>Рассчитать примерную стоимость</h2>
+        <p>Выберите тип ремонта, укажите площадь квартиры и оставьте контакты. Итоговая цена является примерной.</p>
+    </div>
+
+    <form method="post" class="request-form">
+        <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+        @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+        {
+            <div class="success-message">@Model.SuccessMessage</div>
+        }
+
+        <div class="form-grid">
+            <label>
+                Ваше имя
+                <input asp-for="RequestForm.Name" maxlength="100" placeholder="Иван" />
+                <span asp-validation-for="RequestForm.Name"></span>
+            </label>
+
+            <label>
+                Телефон
+                <input asp-for="RequestForm.Phone" maxlength="50" placeholder="+7 (999) 123-45-67" />
+                <span asp-validation-for="RequestForm.Phone"></span>
+            </label>
+
+            <label>
+                Telegram или WhatsApp
+                <input asp-for="RequestForm.Messenger" maxlength="100" placeholder="@@username или номер" />
+                <span asp-validation-for="RequestForm.Messenger"></span>
+            </label>
+
+            <label>
+                Тип ремонта
+                <select asp-for="RequestForm.RepairType" id="repairType">
+                    <option value="Косметический">Косметический</option>
+                    <option value="Капитальный">Капитальный</option>
+                    <option value="Под ключ">Под ключ</option>
+                </select>
+                <span asp-validation-for="RequestForm.RepairType"></span>
+            </label>
+
+            <label>
+                Площадь квартиры, м²
+                <input asp-for="RequestForm.Area" id="areaInput" type="number" min="10" max="300" />
+                <span asp-validation-for="RequestForm.Area"></span>
+            </label>
+
+            <label class="wide-field">
+                Комментарий
+                <textarea asp-for="RequestForm.Comment" rows="7" maxlength="3000" placeholder="Например: нужна отделка кухни и ванной"></textarea>
+                <span asp-validation-for="RequestForm.Comment"></span>
+            </label>
+        </div>
+
+        <div class="form-bottom">
+            <div class="price-box">
+                <span>Примерная стоимость</span>
+                <strong id="priceResult">260 000 ₽</strong>
+            </div>
+            <button type="submit" class="main-button">Отправить заявку</button>
+        </div>
+    </form>
+</section>
+
+<section class="contact-section" id="contacts">
+    <div>
+        <p class="small-title">Контакты</p>
+        <h2>Заказать ремонт</h2>
+        <p>Напишите или позвоните, чтобы обсудить ремонт квартиры и получить предварительную консультацию.</p>
+    </div>
+    <div class="contact-card">
+        <p><strong>Телефон:</strong> +7 (999) 123-45-67</p>
+        <p><strong>Telegram:</strong> @@mamont_remont</p>
+        <p><strong>WhatsApp:</strong> +7 (999) 123-45-67</p>
+        <p><strong>Город:</strong> Санкт-Петербург</p>
+        <p><strong>График:</strong> Пн-Сб, 9:00-20:00</p>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        if (window.jQuery && $.validator) {
+            $.extend($.validator.messages, {
+                required: "Заполните это поле",
+                remote: "Проверьте это поле",
+                email: "Введите правильный email",
+                url: "Введите правильную ссылку",
+                date: "Введите правильную дату",
+                dateISO: "Введите дату в формате ISO",
+                number: "Введите число",
+                digits: "Введите только цифры",
+                equalTo: "Введите такое же значение еще раз",
+                maxlength: $.validator.format("Введите не больше {0} символов"),
+                minlength: $.validator.format("Введите не меньше {0} символов"),
+                rangelength: $.validator.format("Введите значение длиной от {0} до {1} символов"),
+                range: $.validator.format("Введите значение от {0} до {1}"),
+                max: $.validator.format("Введите значение меньше или равное {0}"),
+                min: $.validator.format("Введите значение больше или равное {0}")
+            });
+        }
+
+        const repairType = document.getElementById("repairType");
+        const areaInput = document.getElementById("areaInput");
+        const priceResult = document.getElementById("priceResult");
+
+        function updatePrice() {
+            const area = Number(areaInput.value) || 0;
+            const prices = {
+                "Косметический": 6500,
+                "Капитальный": 12000,
+                "Под ключ": 18000
+            };
+            const price = area * prices[repairType.value];
+            priceResult.textContent = price.toLocaleString("ru-RU") + " ₽";
+        }
+
+        repairType.addEventListener("change", updatePrice);
+        areaInput.addEventListener("input", updatePrice);
+        updatePrice();
+    </script>
+}

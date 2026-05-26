@@ -1,0 +1,16 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Local secrets and environment files
+secrets.json
+.env
+.env.*
+
+# OS files
+Thumbs.db
+Desktop.ini

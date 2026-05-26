@@ -1,0 +1,68 @@
+@page
+@model RequestsModel
+@{
+    ViewData["Title"] = "Заявки";
+}
+
+<section class="admin-section">
+    <div class="section-heading">
+        <p class="small-title">Админка</p>
+        <h1>Заявки клиентов</h1>
+        <p>Здесь отображаются заявки, которые посетители отправили через форму на сайте.</p>
+    </div>
+
+    @if (!Model.IsUnlocked)
+    {
+        <form method="post" class="admin-login-form">
+            <label>
+                Пароль
+                <input asp-for="Password" type="password" maxlength="10" placeholder="Введите пароль" />
+            </label>
+
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="login-error">@Model.ErrorMessage</div>
+            }
+
+            <button type="submit" class="main-button">Открыть заявки</button>
+        </form>
+    }
+    else if (Model.Requests.Count == 0)
+    {
+        <div class="empty-state">Пока заявок нет.</div>
+    }
+    else
+    {
+        <div class="requests-table-wrap">
+            <table class="requests-table">
+                <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Имя</th>
+                        <th>Телефон</th>
+                        <th>Мессенджер</th>
+                        <th>Ремонт</th>
+                        <th>Площадь</th>
+                        <th>Цена</th>
+                        <th>Комментарий</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var request in Model.Requests)
+                    {
+                        <tr>
+                            <td>@request.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>@request.Name</td>
+                            <td>@request.Phone</td>
+                            <td>@request.Messenger</td>
+                            <td>@request.RepairType</td>
+                            <td>@request.Area м²</td>
+                            <td>@request.EstimatedPrice.ToString("N0") ₽</td>
+                            <td>@request.Comment</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>
