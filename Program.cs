@@ -22,19 +22,17 @@ builder.Services.AddRazorPages()
     });
 builder.Services.AddSession();
 
-builder.Services.AddSingleton(sp =>
+var connectionString = builder.Configuration.GetConnectionString("NeonDb");
+
+if (string.IsNullOrWhiteSpace(connectionString))
 {
-    var configuration = sp.GetRequiredService<IConfiguration>();
-    var connectionString = configuration.GetConnectionString("NeonDb");
-
-    if (string.IsNullOrWhiteSpace(connectionString))
-    {
-        throw new InvalidOperationException("Connection string 'NeonDb' is not configured.");
-    }
-
-    return new NpgsqlDataSourceBuilder(connectionString).Build();
-});
-builder.Services.AddSingleton<RepairRequestService>();
+    builder.Services.AddSingleton<IRepairRequestService, JsonRepairRequestService>();
+}
+else
+{
+    builder.Services.AddSingleton(new NpgsqlDataSourceBuilder(connectionString).Build());
+    builder.Services.AddSingleton<IRepairRequestService, RepairRequestService>();
+}
 
 var app = builder.Build();
 
@@ -70,6 +68,6 @@ app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
 
-await app.Services.GetRequiredService<RepairRequestService>().CreateTableAsync();
+await app.Services.GetRequiredService<IRepairRequestService>().CreateTableAsync();
 
 app.Run();

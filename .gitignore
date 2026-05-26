@@ -10,6 +10,7 @@ obj/
 secrets.json
 .env
 .env.*
+App_Data/
 
 # OS files
 Thumbs.db

@@ -3,7 +3,7 @@ using Npgsql;
 
 namespace MAMONT.Services;
 
-public class RepairRequestService
+public class RepairRequestService : IRepairRequestService
 {
     private readonly NpgsqlDataSource _dataSource;
 

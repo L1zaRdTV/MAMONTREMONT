@@ -16,7 +16,9 @@
 dotnet run
 ```
 
-Для работы с Neon DB нужно добавить строку подключения в user-secrets:
+Если строка подключения Neon DB не настроена, проект автоматически сохраняет заявки в локальный файл `App_Data/repair_requests.json`.
+
+Для работы именно с Neon DB нужно добавить строку подключения в user-secrets:
 
 ```powershell
 dotnet user-secrets set "ConnectionStrings:NeonDb" "ВАША_СТРОКА_ПОДКЛЮЧЕНИЯ"

@@ -10,9 +10,9 @@ public class RequestsModel : PageModel
 {
     private const string AdminPassword = "123";
     private const string SessionKey = "RequestsUnlocked";
-    private readonly RepairRequestService _requestService;
+    private readonly IRepairRequestService _requestService;
 
-    public RequestsModel(RepairRequestService requestService)
+    public RequestsModel(IRepairRequestService requestService)
     {
         _requestService = requestService;
     }

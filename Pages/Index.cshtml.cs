@@ -8,9 +8,9 @@ namespace MAMONT.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        private readonly RepairRequestService _requestService;
+        private readonly IRepairRequestService _requestService;
 
-        public IndexModel(ILogger<IndexModel> logger, RepairRequestService requestService)
+        public IndexModel(ILogger<IndexModel> logger, IRepairRequestService requestService)
         {
             _logger = logger;
             _requestService = requestService;
