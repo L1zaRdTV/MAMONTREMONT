@@ -20,6 +20,7 @@ public class RequestsModel : PageModel
     public List<RepairRequestItem> Requests { get; set; } = [];
     public bool IsUnlocked { get; set; }
     public string? ErrorMessage { get; set; }
+    public string? StatusMessage { get; set; }
 
     [BindProperty]
     [StringLength(10, ErrorMessage = "Пароль не должен быть длиннее 10 символов")]
@@ -50,12 +51,35 @@ public class RequestsModel : PageModel
         return Page();
     }
 
+    public async Task<IActionResult> OnPostUpdateStatusAsync(int id, string status)
+    {
+        if (HttpContext.Session.GetString(SessionKey) != "true")
+        {
+            ErrorMessage = "Сначала войдите в админку.";
+            await LoadRequestsIfUnlockedAsync();
+            return Page();
+        }
+
+        if (id <= 0 || !RepairRequestStatus.IsValid(status))
+        {
+            ErrorMessage = "Не удалось обновить статус заявки.";
+            await LoadRequestsIfUnlockedAsync();
+            return Page();
+        }
+
+        await _requestService.UpdateStatusAsync(id, status);
+        TempData["StatusMessage"] = $"Заявка #{id} теперь: {RepairRequestStatus.GetLabel(status).ToLowerInvariant()}.";
+
+        return RedirectToPage();
+    }
+
     private async Task LoadRequestsIfUnlockedAsync()
     {
         IsUnlocked = HttpContext.Session.GetString(SessionKey) == "true";
 
         if (IsUnlocked)
         {
+            StatusMessage = TempData["StatusMessage"] as string;
             Requests = await _requestService.GetAllAsync();
         }
     }

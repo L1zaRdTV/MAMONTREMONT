@@ -24,8 +24,12 @@ public class RepairRequestService : IRepairRequestService
                 area integer not null,
                 comment text,
                 estimated_price numeric(12, 2) not null,
-                created_at timestamptz not null default now()
+                created_at timestamptz not null default now(),
+                status varchar(20) not null default 'new'
             );
+
+            alter table repair_requests
+            add column if not exists status varchar(20) not null default 'new';
             """;
 
         await using var command = _dataSource.CreateCommand(sql);
@@ -36,9 +40,9 @@ public class RepairRequestService : IRepairRequestService
     {
         const string sql = """
             insert into repair_requests
-                (name, phone, messenger, repair_type, area, comment, estimated_price)
+                (name, phone, messenger, repair_type, area, comment, estimated_price, status)
             values
-                (@name, @phone, @messenger, @repair_type, @area, @comment, @estimated_price);
+                (@name, @phone, @messenger, @repair_type, @area, @comment, @estimated_price, @status);
             """;
 
         await using var command = _dataSource.CreateCommand(sql);
@@ -49,6 +53,7 @@ public class RepairRequestService : IRepairRequestService
         command.Parameters.AddWithValue("area", request.Area);
         command.Parameters.AddWithValue("comment", (object?)request.Comment ?? DBNull.Value);
         command.Parameters.AddWithValue("estimated_price", request.EstimatedPrice);
+        command.Parameters.AddWithValue("status", RepairRequestStatus.New);
 
         await command.ExecuteNonQueryAsync();
     }
@@ -56,7 +61,7 @@ public class RepairRequestService : IRepairRequestService
     public async Task<List<RepairRequestItem>> GetAllAsync()
     {
         const string sql = """
-            select id, name, phone, messenger, repair_type, area, comment, estimated_price, created_at
+            select id, name, phone, messenger, repair_type, area, comment, estimated_price, created_at, status
             from repair_requests
             order by created_at desc;
             """;
@@ -77,10 +82,31 @@ public class RepairRequestService : IRepairRequestService
                 Area = reader.GetInt32(5),
                 Comment = reader.IsDBNull(6) ? null : reader.GetString(6),
                 EstimatedPrice = reader.GetDecimal(7),
-                CreatedAt = reader.GetDateTime(8)
+                CreatedAt = reader.GetDateTime(8),
+                Status = reader.IsDBNull(9) ? RepairRequestStatus.New : reader.GetString(9)
             });
         }
 
         return requests;
+    }
+
+    public async Task UpdateStatusAsync(int id, string status)
+    {
+        if (!RepairRequestStatus.IsValid(status))
+        {
+            throw new ArgumentException("Недопустимый статус заявки.", nameof(status));
+        }
+
+        const string sql = """
+            update repair_requests
+            set status = @status
+            where id = @id;
+            """;
+
+        await using var command = _dataSource.CreateCommand(sql);
+        command.Parameters.AddWithValue("id", id);
+        command.Parameters.AddWithValue("status", status);
+
+        await command.ExecuteNonQueryAsync();
     }
 }
