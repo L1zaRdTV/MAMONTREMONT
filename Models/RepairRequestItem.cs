@@ -17,15 +17,19 @@ public class RepairRequestItem
 public static class RepairRequestStatus
 {
     public const string New = "new";
-    public const string Accepted = "accepted";
-    public const string Cancelled = "cancelled";
+    public const string Processed = "processed";
 
-    public static bool IsValid(string? status) => status is New or Accepted or Cancelled;
+    public static bool IsValid(string? status) => status is New or Processed;
 
-    public static string GetLabel(string? status) => status switch
+    public static string Normalize(string? status) => status switch
     {
-        Accepted => "Принята",
-        Cancelled => "Отменена",
+        Processed or "accepted" or "cancelled" => Processed,
+        _ => New
+    };
+
+    public static string GetLabel(string? status) => Normalize(status) switch
+    {
+        Processed => "Отработана",
         _ => "Новая"
     };
 }

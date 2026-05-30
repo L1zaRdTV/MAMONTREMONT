@@ -1677,3 +1677,142 @@ p {
     width: 100%;
   }
 }
+
+/* Fixed-size examples: cards are capped so browser zoom-out does not stretch photos into huge banners. */
+#works {
+  max-width: 1220px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#works .work-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 360px));
+  justify-content: center;
+  align-items: stretch;
+}
+
+#works .work-card {
+  width: 100%;
+  max-width: 360px;
+  grid-template-rows: 238px 1fr;
+}
+
+#works .work-card img {
+  display: block;
+  width: 100%;
+  height: 238px;
+  min-height: 0;
+  aspect-ratio: auto;
+  object-fit: cover;
+}
+
+.request-groups,
+.request-group {
+  display: grid;
+  gap: 26px;
+}
+
+.request-group-heading {
+  display: flex;
+  gap: 18px;
+  align-items: end;
+  justify-content: space-between;
+}
+
+.request-group-heading h2 {
+  margin: 0;
+  font-size: clamp(1.55rem, 2.8vw, 2.4rem);
+}
+
+.request-group-heading .small-title {
+  margin-bottom: 6px;
+}
+
+.request-group-heading > span {
+  display: inline-flex;
+  min-width: 46px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: #24180f;
+  background: rgba(215, 154, 72, 0.22);
+  font-weight: 950;
+}
+
+.archive-group {
+  border-top: 1px solid rgba(83, 56, 32, 0.12);
+  padding-top: 28px;
+}
+
+.compact-empty {
+  padding: 22px;
+}
+
+.archive-card-grid .request-card {
+  background: rgba(255, 250, 242, 0.72);
+}
+
+.request-card-processed::before {
+  background: #5d6f85;
+}
+
+.request-card h3 {
+  margin: 6px 0 4px;
+  color: var(--ink);
+  font-size: clamp(1.55rem, 2.8vw, 2.15rem);
+  line-height: 1.05;
+}
+
+.status-badge-processed {
+  color: #31435a;
+  background: #edf2f7;
+}
+
+.request-client-info {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.request-client-info div {
+  border-radius: 18px;
+  padding: 14px;
+  background: rgba(255, 246, 232, 0.82);
+}
+
+.request-client-info span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.request-client-info strong,
+.request-client-info a {
+  overflow-wrap: anywhere;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.processed-button {
+  color: white;
+  background: #31435a;
+}
+
+@media (max-width: 640px) {
+  .request-group-heading,
+  .request-client-info {
+    grid-template-columns: 1fr;
+  }
+
+  .request-group-heading {
+    display: grid;
+    align-items: start;
+  }
+}

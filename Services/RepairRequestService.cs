@@ -30,6 +30,10 @@ public class RepairRequestService : IRepairRequestService
 
             alter table repair_requests
             add column if not exists status varchar(20) not null default 'new';
+
+            update repair_requests
+            set status = 'processed'
+            where status in ('accepted', 'cancelled');
             """;
 
         await using var command = _dataSource.CreateCommand(sql);
@@ -83,7 +87,7 @@ public class RepairRequestService : IRepairRequestService
                 Comment = reader.IsDBNull(6) ? null : reader.GetString(6),
                 EstimatedPrice = reader.GetDecimal(7),
                 CreatedAt = reader.GetDateTime(8),
-                Status = reader.IsDBNull(9) ? RepairRequestStatus.New : reader.GetString(9)
+                Status = RepairRequestStatus.Normalize(reader.IsDBNull(9) ? null : reader.GetString(9))
             });
         }
 

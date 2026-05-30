@@ -4,9 +4,12 @@
 @{
     ViewData["Title"] = "Заявки";
 
-    var newCount = Model.Requests.Count(request => request.Status == RepairRequestStatus.New || string.IsNullOrWhiteSpace(request.Status));
-    var acceptedCount = Model.Requests.Count(request => request.Status == RepairRequestStatus.Accepted);
-    var cancelledCount = Model.Requests.Count(request => request.Status == RepairRequestStatus.Cancelled);
+    var activeRequests = Model.Requests
+        .Where(request => RepairRequestStatus.Normalize(request.Status) == RepairRequestStatus.New)
+        .ToList();
+    var archivedRequests = Model.Requests
+        .Where(request => RepairRequestStatus.Normalize(request.Status) == RepairRequestStatus.Processed)
+        .ToList();
 }
 
 <section class="admin-section">
@@ -14,7 +17,7 @@
         <div class="section-heading">
             <p class="small-title">Админка</p>
             <h1>Заявки клиентов</h1>
-            <p>Быстрый контроль входящих обращений: смотрите детали, принимайте заявки в работу или отменяйте неактуальные обращения.</p>
+            <p>Смотрите всю информацию из формы, звоните клиенту и нажимайте «Отработана», чтобы перенести заявку в архив.</p>
         </div>
         @if (Model.IsUnlocked)
         {
@@ -25,15 +28,15 @@
                 </div>
                 <div>
                     <span>Новые</span>
-                    <strong>@newCount</strong>
+                    <strong>@activeRequests.Count</strong>
                 </div>
                 <div>
-                    <span>Принятые</span>
-                    <strong>@acceptedCount</strong>
+                    <span>Архив</span>
+                    <strong>@archivedRequests.Count</strong>
                 </div>
                 <div>
-                    <span>Отмененные</span>
-                    <strong>@cancelledCount</strong>
+                    <span>Последняя</span>
+                    <strong>@(Model.Requests.Count == 0 ? "—" : Model.Requests.Max(request => request.Id))</strong>
                 </div>
             </div>
         }
@@ -55,7 +58,7 @@
             <div>
                 <span class="login-eyebrow">Доступ к CRM</span>
                 <h2>Введите пароль администратора</h2>
-                <p>После входа откроется список заявок и кнопки управления статусами.</p>
+                <p>После входа откроется список заявок и кнопка переноса в архив.</p>
             </div>
 
             <label>
@@ -75,75 +78,60 @@
     }
     else
     {
-        <div class="request-card-grid">
-            @foreach (var request in Model.Requests)
-            {
-                var status = RepairRequestStatus.IsValid(request.Status) ? request.Status : RepairRequestStatus.New;
-                var statusLabel = RepairRequestStatus.GetLabel(status);
-                var createdIso = request.CreatedAt.ToUniversalTime().ToString("O");
-                var isAccepted = status == RepairRequestStatus.Accepted;
-                var isCancelled = status == RepairRequestStatus.Cancelled;
-
-                <article class="request-card request-card-@status">
-                    <div class="request-card-top">
-                        <div>
-                            <span class="request-id">Заявка #@request.Id</span>
-                            <h2>@request.Name</h2>
-                            <time datetime="@createdIso">@request.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</time>
-                        </div>
-                        <span class="status-badge status-badge-@status">@statusLabel</span>
+        <div class="request-groups">
+            <section class="request-group" aria-labelledby="activeRequestsTitle">
+                <div class="request-group-heading">
+                    <div>
+                        <p class="small-title">Новые заявки</p>
+                        <h2 id="activeRequestsTitle">Нужно позвонить и уточнить детали</h2>
                     </div>
+                    <span>@activeRequests.Count</span>
+                </div>
 
-                    <div class="request-contact-row">
-                        <a href="tel:@request.Phone">@request.Phone</a>
-                        @if (!string.IsNullOrWhiteSpace(request.Messenger))
+                @if (activeRequests.Count == 0)
+                {
+                    <div class="empty-state admin-empty compact-empty">
+                        <strong>Новых заявок нет</strong>
+                        <span>Все обращения уже перенесены в архив.</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="request-card-grid">
+                        @foreach (var request in activeRequests)
                         {
-                            <span>@request.Messenger</span>
+                            @await Html.PartialAsync("_RequestCard", request)
                         }
                     </div>
+                }
+            </section>
 
-                    <dl class="request-details">
-                        <div>
-                            <dt>Тип ремонта</dt>
-                            <dd>@request.RepairType</dd>
-                        </div>
-                        <div>
-                            <dt>Площадь</dt>
-                            <dd>@request.Area м²</dd>
-                        </div>
-                        <div>
-                            <dt>Расчет</dt>
-                            <dd>@request.EstimatedPrice.ToString("N0") ₽</dd>
-                        </div>
-                    </dl>
-
-                    @if (!string.IsNullOrWhiteSpace(request.Comment))
-                    {
-                        <div class="request-comment">
-                            <span>Комментарий</span>
-                            <p>@request.Comment</p>
-                        </div>
-                    }
-
-                    <div class="request-actions" aria-label="Действия с заявкой #@request.Id">
-                        <form method="post" asp-page-handler="UpdateStatus">
-                            <input type="hidden" name="id" value="@request.Id" />
-                            <input type="hidden" name="status" value="@RepairRequestStatus.Accepted" />
-                            <button type="submit" class="action-button accept-button" disabled="@isAccepted">Принять</button>
-                        </form>
-                        <form method="post" asp-page-handler="UpdateStatus">
-                            <input type="hidden" name="id" value="@request.Id" />
-                            <input type="hidden" name="status" value="@RepairRequestStatus.Cancelled" />
-                            <button type="submit" class="action-button cancel-button" disabled="@isCancelled">Отменить</button>
-                        </form>
-                        <form method="post" asp-page-handler="UpdateStatus">
-                            <input type="hidden" name="id" value="@request.Id" />
-                            <input type="hidden" name="status" value="@RepairRequestStatus.New" />
-                            <button type="submit" class="action-button neutral-button" disabled="@(status == RepairRequestStatus.New)">Вернуть в новые</button>
-                        </form>
+            <section class="request-group archive-group" aria-labelledby="archiveRequestsTitle">
+                <div class="request-group-heading">
+                    <div>
+                        <p class="small-title">Архив</p>
+                        <h2 id="archiveRequestsTitle">Отработанные заявки</h2>
                     </div>
-                </article>
-            }
+                    <span>@archivedRequests.Count</span>
+                </div>
+
+                @if (archivedRequests.Count == 0)
+                {
+                    <div class="empty-state admin-empty compact-empty">
+                        <strong>Архив пуст</strong>
+                        <span>Нажмите «Отработана» после звонка клиенту, и заявка появится здесь.</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="request-card-grid archive-card-grid">
+                        @foreach (var request in archivedRequests)
+                        {
+                            @await Html.PartialAsync("_RequestCard", request)
+                        }
+                    </div>
+                }
+            </section>
         </div>
     }
 </section>

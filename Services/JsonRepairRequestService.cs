@@ -102,9 +102,9 @@ public class JsonRepairRequestService : IRepairRequestService
         var json = await File.ReadAllTextAsync(_filePath);
         var requests = JsonSerializer.Deserialize<List<RepairRequestItem>>(json) ?? [];
 
-        foreach (var request in requests.Where(item => string.IsNullOrWhiteSpace(item.Status)))
+        foreach (var request in requests)
         {
-            request.Status = RepairRequestStatus.New;
+            request.Status = RepairRequestStatus.Normalize(request.Status);
         }
 
         return requests;

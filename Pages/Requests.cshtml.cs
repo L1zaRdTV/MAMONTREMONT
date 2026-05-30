@@ -68,7 +68,10 @@ public class RequestsModel : PageModel
         }
 
         await _requestService.UpdateStatusAsync(id, status);
-        TempData["StatusMessage"] = $"Заявка #{id} теперь: {RepairRequestStatus.GetLabel(status).ToLowerInvariant()}.";
+
+        TempData["StatusMessage"] = status == RepairRequestStatus.Processed
+            ? $"Заявка #{id} перенесена в архив как отработанная."
+            : $"Заявка #{id} возвращена в новые.";
 
         return RedirectToPage();
     }
