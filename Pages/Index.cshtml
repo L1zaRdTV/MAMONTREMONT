@@ -1,7 +1,7 @@
 @page
 @model IndexModel
 @{
-    ViewData["Title"] = "Мамонт ремонт";
+    ViewData["Title"] = "Премиальный ремонт квартир";
 }
 
 @if (!string.IsNullOrEmpty(Model.SuccessMessage))
@@ -13,78 +13,98 @@
 }
 
 <section class="hero-section">
+    <div class="hero-glow hero-glow-one" aria-hidden="true"></div>
+    <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
+
     <div class="hero-text">
-        <p class="small-title">Ремонт квартир под ключ</p>
-        <h1>Мамонт ремонт</h1>
+        <p class="small-title">Ремонт квартир под ключ в Санкт-Петербурге</p>
+        <h1>Ремонт, после которого хочется остаться дома</h1>
         <p class="hero-description">
-            Делаем ремонт квартир, студий и коммерческих помещений: от демонтажа и черновых работ до чистовой отделки,
-            уборки и передачи готового объекта.
+            Проектируем, считаем смету, закупаем материалы и ведем объект до чистой сдачи.
+            Без хаоса, случайных мастеров и бесконечных «доплат по ходу».
         </p>
         <div class="hero-buttons">
             <a class="main-button" href="#calculator">Рассчитать стоимость</a>
-            <a class="second-button" href="#works">Посмотреть работы</a>
+            <a class="second-button" href="#works">Смотреть проекты</a>
         </div>
         <div class="hero-badges">
-            <span>Смета до начала работ</span>
-            <span>Договор и гарантия</span>
-            <span>Фотоотчеты по этапам</span>
+            <span>Фиксируем этапы в договоре</span>
+            <span>Фотоотчеты каждую неделю</span>
+            <span>Гарантия до 2 лет</span>
+        </div>
+    </div>
+
+    <div class="hero-showcase" aria-label="Преимущества ремонта">
+        <div class="showcase-card showcase-main">
+            <span class="showcase-label">Сейчас в работе</span>
+            <strong>Евро-двушка 54 м²</strong>
+            <p>Черновые работы завершены, чистовая отделка идет по графику.</p>
+            <div class="progress-line"><span></span></div>
+        </div>
+        <div class="showcase-card showcase-price">
+            <span>Смета</span>
+            <strong>до 24 часов</strong>
+        </div>
+        <div class="showcase-card showcase-team">
+            <span>Бригада</span>
+            <strong>мастер + прораб</strong>
         </div>
     </div>
 </section>
 
 <section class="info-section" id="about">
-    <div>
+    <div class="section-heading">
         <p class="small-title">О компании</p>
-        <h2>Ремонт без хаоса и лишних обещаний</h2>
+        <h2>Дизайн, инженерия и отделка в одном спокойном процессе</h2>
         <p>
-            «Мамонт ремонт» помогает заранее понять бюджет, сроки и порядок работ.
-            Мы фиксируем состав ремонта, подбираем материалы, ведем объект по этапам и показываем результат до приемки.
+            «Мамонт ремонт» берет на себя весь цикл: от первого замера и понятной сметы до финальной уборки.
+            Мы заранее объясняем последовательность работ, помогаем подобрать материалы и показываем прогресс без лишних звонков.
         </p>
         <p>
-            Клиент видит варианты ремонта, примеры объектов, этапы, материалы, ответы на вопросы
-            и может оставить заявку с примерным расчетом стоимости.
+            На сайте можно выбрать формат ремонта, посмотреть примеры объектов, сравнить состав работ и оставить заявку
+            с предварительным расчетом стоимости.
         </p>
     </div>
     <div class="stats">
         <div>
             <strong>7+</strong>
-            <span>лет опыта в отделке квартир</span>
+            <span>лет опыта в ремонте квартир и коммерческих помещений</span>
         </div>
         <div>
             <strong>120+</strong>
-            <span>готовых объектов разной площади</span>
+            <span>сданных объектов с черновыми и чистовыми работами</span>
         </div>
         <div>
             <strong>2 года</strong>
-            <span>гарантия на выполненные работы</span>
+            <span>гарантия на выполненные работы по договору</span>
         </div>
     </div>
 </section>
 
 <section class="trust-section">
     <div class="trust-item">
-        <strong>Бесплатный замер</strong>
-        <span>осматриваем помещение и уточняем задачу</span>
+        <strong>01</strong>
+        <span>Бесплатный замер и консультация по состоянию квартиры</span>
     </div>
     <div class="trust-item">
-        <strong>Подробная смета</strong>
-        <span>разделяем стоимость работ и материалов</span>
+        <strong>02</strong>
+        <span>Смета с разделением работ, материалов и дополнительных опций</span>
     </div>
     <div class="trust-item">
-        <strong>Контроль мастера</strong>
-        <span>один ответственный на объекте каждый день</span>
+        <strong>03</strong>
+        <span>Ежедневный контроль прораба и понятные отчеты по этапам</span>
     </div>
     <div class="trust-item">
-        <strong>Чистая сдача</strong>
-        <span>проверяем детали и убираем после ремонта</span>
+        <strong>04</strong>
+        <span>Финальная проверка, уборка и передача готового объекта</span>
     </div>
 </section>
 
 <section class="section-block" id="services">
-    <div class="section-heading">
+    <div class="section-heading centered-heading">
         <p class="small-title">Услуги</p>
-        <h2>Выберите направление ремонта</h2>
-        <p>Нажмите на вкладку, чтобы увидеть, какие работы входят в выбранное направление.</p>
+        <h2>Ремонт под вашу задачу</h2>
+        <p>Выберите направление и посмотрите, какие работы мы берем на себя.</p>
     </div>
 
     <div class="service-tabs" role="tablist" aria-label="Направления услуг">
@@ -96,62 +116,67 @@
 
     <div class="service-panel active" id="service-apartments" role="tabpanel">
         <div>
+            <p class="panel-kicker">Комплексный формат</p>
             <h3>Ремонт квартир</h3>
-            <p>Косметический, капитальный и комплексный ремонт под ключ для новостроек и вторичного жилья.</p>
+            <p>Косметический, капитальный и премиальный ремонт для новостроек и вторичного жилья.</p>
         </div>
         <ul>
-            <li>демонтаж старой отделки</li>
-            <li>выравнивание стен и пола</li>
-            <li>чистовая отделка и финальная уборка</li>
+            <li>демонтаж старой отделки и подготовка поверхностей</li>
+            <li>электрика, сантехника, выравнивание стен и пола</li>
+            <li>чистовая отделка, уборка и подготовка к заселению</li>
         </ul>
     </div>
 
     <div class="service-panel" id="service-rooms" role="tabpanel">
         <div>
+            <p class="panel-kicker">Точно в цель</p>
             <h3>Отделка отдельных комнат</h3>
             <p>Кухни, санузлы, спальни, гостиные, прихожие, балконы и рабочие кабинеты.</p>
         </div>
         <ul>
-            <li>плитка, обои, покраска</li>
-            <li>ламинат, кварцвинил, плинтусы</li>
-            <li>подготовка стен и выводов под мебель</li>
+            <li>плитка, обои, декоративная штукатурка и покраска</li>
+            <li>ламинат, кварцвинил, плинтусы и примыкания</li>
+            <li>подготовка стен, выводов и освещения под мебель</li>
         </ul>
     </div>
 
     <div class="service-panel" id="service-engineering" role="tabpanel">
         <div>
+            <p class="panel-kicker">Основа надежности</p>
             <h3>Электрика и сантехника</h3>
-            <p>Работы, которые важно сделать до чистовой отделки, чтобы потом не вскрывать стены.</p>
+            <p>Работы, которые важно выполнить до чистовой отделки, чтобы не вскрывать стены после ремонта.</p>
         </div>
         <ul>
-            <li>розетки, выключатели и световые группы</li>
-            <li>замена труб и подключение сантехники</li>
-            <li>подготовка щитка и выводов под технику</li>
+            <li>розетки, выключатели, световые группы и щиток</li>
+            <li>замена труб, гидроизоляция, подключение сантехники</li>
+            <li>выводы под технику, мебель, интернет и умный дом</li>
         </ul>
     </div>
 
     <div class="service-panel" id="service-commerce" role="tabpanel">
         <div>
+            <p class="panel-kicker">Для бизнеса</p>
             <h3>Коммерческие помещения</h3>
-            <p>Практичная отделка офисов, салонов, кабинетов и небольших торговых помещений.</p>
+            <p>Практичная отделка офисов, салонов, кабинетов и небольших торговых пространств.</p>
         </div>
         <ul>
-            <li>износостойкие материалы</li>
-            <li>работа по графику объекта</li>
+            <li>износостойкие материалы и аккуратные узлы</li>
+            <li>работа по согласованному графику объекта</li>
             <li>быстрая подготовка помещения к открытию</li>
         </ul>
     </div>
 </section>
 
 <section class="section-block repair-types" id="prices">
-    <div class="section-heading">
+    <div class="section-heading centered-heading">
         <p class="small-title">Пакеты</p>
-        <h2>Виды ремонта и примерные цены</h2>
-        <p>Стоимость зависит от состояния помещения, материалов и сложности проекта. Точная смета составляется после осмотра объекта.</p>
+        <h2>Понятные форматы и примерные цены</h2>
+        <p>Точная стоимость зависит от состояния помещения, материалов и сложности проекта. Финальную смету фиксируем после замера.</p>
     </div>
 
     <div class="price-grid">
         <article class="price-card">
+            <span class="price-tag">Light</span>
             <h3>Косметический</h3>
             <strong>от 6 500 ₽/м²</strong>
             <p>Для квартиры, которую нужно быстро освежить без полной замены инженерных систем.</p>
@@ -162,9 +187,10 @@
             </ul>
         </article>
         <article class="price-card accent-card">
+            <span class="price-tag">Best choice</span>
             <h3>Капитальный</h3>
             <strong>от 12 000 ₽/м²</strong>
-            <p>Подходит, если нужно обновить отделку, электрику, сантехнику и подготовку поверхностей.</p>
+            <p>Если нужно обновить отделку, электрику, сантехнику и подготовку поверхностей.</p>
             <ul>
                 <li>демонтаж и черновые работы</li>
                 <li>замена коммуникаций</li>
@@ -172,6 +198,7 @@
             </ul>
         </article>
         <article class="price-card">
+            <span class="price-tag">Premium</span>
             <h3>Под ключ</h3>
             <strong>от 18 000 ₽/м²</strong>
             <p>Комплексный формат: смета, материалы, ремонт, контроль качества и финальная уборка.</p>
@@ -185,7 +212,7 @@
 </section>
 
 <section class="section-block" id="works">
-    <div class="section-heading">
+    <div class="section-heading centered-heading">
         <p class="small-title">Кейсы</p>
         <h2>Примеры выполненных ремонтов</h2>
     </div>
@@ -199,7 +226,7 @@
                 <span>Срок: 14 дней</span>
             </div>
         </article>
-        <article class="work-card">
+        <article class="work-card featured-work">
             <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80" alt="Ремонт ванной комнаты">
             <div>
                 <h3>Санузел 5 м²</h3>
@@ -219,9 +246,9 @@
 </section>
 
 <section class="section-block portfolio-section">
-    <div class="section-heading">
+    <div class="section-heading centered-heading">
         <p class="small-title">Галерея</p>
-        <h2>Ремонт разных зон квартиры</h2>
+        <h2>Атмосфера готовых пространств</h2>
     </div>
 
     <div class="portfolio-grid">
@@ -253,29 +280,29 @@
 </section>
 
 <section class="steps-section">
-    <div class="section-heading">
+    <div class="section-heading centered-heading">
         <p class="small-title">Этапы</p>
         <h2>Как проходит работа</h2>
     </div>
 
     <div class="steps">
-        <div><span>1</span>Заявка, консультация и замер помещения</div>
-        <div><span>2</span>Смета, подбор материалов и договор</div>
-        <div><span>3</span>Черновые, инженерные и чистовые работы</div>
-        <div><span>4</span>Проверка качества, уборка и сдача объекта</div>
+        <div><span>1</span><strong>Заявка и замер</strong><p>Осматриваем объект, фиксируем задачи и ограничения.</p></div>
+        <div><span>2</span><strong>Смета и договор</strong><p>Разделяем работы, материалы, сроки и зоны ответственности.</p></div>
+        <div><span>3</span><strong>Ремонт по этапам</strong><p>Выполняем черновые, инженерные и чистовые работы.</p></div>
+        <div><span>4</span><strong>Сдача объекта</strong><p>Проверяем качество, убираем и передаем готовое пространство.</p></div>
     </div>
 </section>
 
 <section class="control-section">
-    <div class="section-heading">
+    <div class="section-heading centered-heading">
         <p class="small-title">Контроль качества</p>
-        <h2>Что проверяем во время ремонта</h2>
+        <h2>Детали, которые нельзя упускать</h2>
     </div>
 
     <div class="control-grid">
         <div>
             <h3>Геометрия</h3>
-            <p>Ровность стен, углы, примыкания, подготовка поверхностей под финишную отделку.</p>
+            <p>Ровность стен, углы, примыкания и подготовка поверхностей под финишную отделку.</p>
         </div>
         <div>
             <h3>Электрика</h3>
@@ -283,17 +310,17 @@
         </div>
         <div>
             <h3>Сантехника</h3>
-            <p>Герметичность соединений, доступ к узлам, уклон, удобство установки оборудования.</p>
+            <p>Герметичность соединений, доступ к узлам, уклон и удобство установки оборудования.</p>
         </div>
         <div>
             <h3>Финиш</h3>
-            <p>Швы плитки, стыки покрытий, плинтусы, покраска, уборка и список замечаний перед сдачей.</p>
+            <p>Швы плитки, стыки покрытий, плинтусы, покраска и список замечаний перед сдачей.</p>
         </div>
     </div>
 </section>
 
 <section class="section-block materials-section">
-    <div class="section-heading">
+    <div class="section-heading centered-heading">
         <p class="small-title">Материалы</p>
         <h2>С чем работаем</h2>
     </div>
@@ -309,7 +336,7 @@
 </section>
 
 <section class="comparison-section">
-    <div class="section-heading">
+    <div class="section-heading centered-heading">
         <p class="small-title">Сравнение</p>
         <h2>Что входит в разные форматы</h2>
     </div>
@@ -355,7 +382,7 @@
 </section>
 
 <section class="section-block reviews-section">
-    <div class="section-heading">
+    <div class="section-heading centered-heading">
         <p class="small-title">Отзывы</p>
         <h2>Что говорят клиенты</h2>
     </div>
@@ -377,7 +404,7 @@
 </section>
 
 <section class="faq-section">
-    <div class="section-heading">
+    <div class="section-heading centered-heading">
         <p class="small-title">FAQ</p>
         <h2>Частые вопросы</h2>
     </div>
@@ -403,7 +430,7 @@
 </section>
 
 <section class="calculator-section" id="calculator">
-    <div class="section-heading">
+    <div class="section-heading centered-heading">
         <p class="small-title">Калькулятор</p>
         <h2>Рассчитать примерную стоимость</h2>
         <p>Выберите тип ремонта, укажите площадь квартиры и оставьте контакты. После отправки появится заметное уведомление.</p>
@@ -475,8 +502,8 @@
 <section class="contact-section" id="contacts">
     <div>
         <p class="small-title">Контакты</p>
-        <h2>Заказать ремонт</h2>
-        <p>Напишите или позвоните, чтобы обсудить ремонт квартиры и получить предварительную консультацию.</p>
+        <h2>Обсудим ваш ремонт</h2>
+        <p>Напишите или позвоните, чтобы получить консультацию, предварительную смету и ближайшую дату замера.</p>
     </div>
     <div class="contact-card">
         <p><strong>Телефон:</strong> +7 (999) 123-45-67</p>
