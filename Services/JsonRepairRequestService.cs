@@ -43,7 +43,8 @@ public class JsonRepairRequestService : IRepairRequestService
                 Area = request.Area,
                 Comment = request.Comment,
                 EstimatedPrice = request.EstimatedPrice,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                Status = RepairRequestStatus.New
             });
 
             await WriteAllInternalAsync(requests);
@@ -69,11 +70,44 @@ public class JsonRepairRequestService : IRepairRequestService
         }
     }
 
+    public async Task UpdateStatusAsync(int id, string status)
+    {
+        if (!RepairRequestStatus.IsValid(status))
+        {
+            throw new ArgumentException("Недопустимый статус заявки.", nameof(status));
+        }
+
+        await _lock.WaitAsync();
+
+        try
+        {
+            var requests = await ReadAllInternalAsync();
+            var request = requests.FirstOrDefault(item => item.Id == id);
+
+            if (request is not null)
+            {
+                request.Status = status;
+                await WriteAllInternalAsync(requests);
+            }
+        }
+        finally
+        {
+            _lock.Release();
+        }
+    }
+
     private async Task<List<RepairRequestItem>> ReadAllInternalAsync()
     {
         await CreateTableAsync();
         var json = await File.ReadAllTextAsync(_filePath);
-        return JsonSerializer.Deserialize<List<RepairRequestItem>>(json) ?? [];
+        var requests = JsonSerializer.Deserialize<List<RepairRequestItem>>(json) ?? [];
+
+        foreach (var request in requests.Where(item => string.IsNullOrWhiteSpace(item.Status)))
+        {
+            request.Status = RepairRequestStatus.New;
+        }
+
+        return requests;
     }
 
     private async Task WriteAllInternalAsync(List<RepairRequestItem> requests)
