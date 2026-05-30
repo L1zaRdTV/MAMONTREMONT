@@ -1,0 +1,77 @@
+@model MAMONT.Models.RepairRequestItem
+@using MAMONT.Models
+@{
+    var status = RepairRequestStatus.Normalize(Model.Status);
+    var statusLabel = RepairRequestStatus.GetLabel(status);
+    var createdIso = Model.CreatedAt.ToUniversalTime().ToString("O");
+    var isArchive = status == RepairRequestStatus.Processed;
+}
+
+<article class="request-card request-card-@status">
+    <div class="request-card-top">
+        <div>
+            <span class="request-id">Заявка #@Model.Id</span>
+            <h3>@Model.Name</h3>
+            <time datetime="@createdIso">@Model.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</time>
+        </div>
+        <span class="status-badge status-badge-@status">@statusLabel</span>
+    </div>
+
+    <div class="request-client-info" aria-label="Данные клиента">
+        <div>
+            <span>Имя клиента</span>
+            <strong>@Model.Name</strong>
+        </div>
+        <div>
+            <span>Телефон</span>
+            <a href="tel:@Model.Phone">@Model.Phone</a>
+        </div>
+        <div>
+            <span>Telegram / WhatsApp</span>
+            <strong>@(string.IsNullOrWhiteSpace(Model.Messenger) ? "Не указан" : Model.Messenger)</strong>
+        </div>
+        <div>
+            <span>Дата заявки</span>
+            <strong>@Model.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</strong>
+        </div>
+    </div>
+
+    <dl class="request-details">
+        <div>
+            <dt>Тип ремонта</dt>
+            <dd>@Model.RepairType</dd>
+        </div>
+        <div>
+            <dt>Площадь</dt>
+            <dd>@Model.Area м²</dd>
+        </div>
+        <div>
+            <dt>Предварительный расчет</dt>
+            <dd>@Model.EstimatedPrice.ToString("N0") ₽</dd>
+        </div>
+    </dl>
+
+    <div class="request-comment">
+        <span>Комментарий клиента</span>
+        <p>@(string.IsNullOrWhiteSpace(Model.Comment) ? "Клиент не оставил комментарий." : Model.Comment)</p>
+    </div>
+
+    <div class="request-actions" aria-label="Действия с заявкой #@Model.Id">
+        @if (!isArchive)
+        {
+            <form method="post" asp-page-handler="UpdateStatus">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <input type="hidden" name="status" value="@RepairRequestStatus.Processed" />
+                <button type="submit" class="action-button processed-button">Отработана</button>
+            </form>
+        }
+        else
+        {
+            <form method="post" asp-page-handler="UpdateStatus">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <input type="hidden" name="status" value="@RepairRequestStatus.New" />
+                <button type="submit" class="action-button neutral-button">Вернуть в новые</button>
+            </form>
+        }
+    </div>
+</article>
