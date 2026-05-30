@@ -23,7 +23,6 @@ namespace MAMONT.Pages
 
         public void OnGet()
         {
-
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -36,7 +35,7 @@ namespace MAMONT.Pages
             }
 
             await _requestService.AddAsync(RequestForm);
-            SuccessMessage = "Заявка отправлена. Мы свяжемся с вами в ближайшее время.";
+            SuccessMessage = "Мы получили ваши контакты и скоро свяжемся для уточнения деталей ремонта.";
             ModelState.Clear();
             RequestForm = new RepairRequestForm();
 

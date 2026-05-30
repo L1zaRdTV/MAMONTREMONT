@@ -133,6 +133,25 @@ p {
   margin-top: 28px;
 }
 
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.hero-badges span,
+.service-tab {
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-weight: 800;
+}
+
+.hero-badges span {
+  color: #241b14;
+  background: rgba(255, 207, 154, 0.92);
+}
+
 .main-button,
 .second-button {
   display: inline-flex;
@@ -164,8 +183,40 @@ p {
 .section-block,
 .steps-section,
 .calculator-section,
+.trust-section,
+.control-section,
+.faq-section,
+.comparison-section,
 .contact-section {
   padding: 70px 7%;
+}
+
+.trust-section {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  background: #2f281f;
+  color: white;
+}
+
+.trust-item {
+  border-left: 3px solid #ffbd6b;
+  padding: 8px 0 8px 18px;
+}
+
+.trust-item strong,
+.trust-item span {
+  display: block;
+}
+
+.trust-item strong {
+  margin-bottom: 6px;
+  color: #ffcf9a;
+  font-size: 20px;
+}
+
+.trust-item span {
+  color: #f4e8da;
 }
 
 .info-section {
@@ -206,7 +257,10 @@ p {
 }
 
 .work-grid,
-.service-grid {
+.portfolio-grid,
+.price-grid,
+.control-grid,
+.review-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
@@ -229,8 +283,125 @@ p {
   padding: 22px;
 }
 
-.service-grid {
-  grid-template-columns: repeat(4, 1fr);
+.work-card span {
+  display: inline-block;
+  margin-top: 8px;
+  color: #9d4f27;
+  font-weight: 800;
+}
+
+.service-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: -8px 0 26px;
+}
+
+.service-tab {
+  border: 1px solid #eadfce;
+  color: #2d241b;
+  background: #fffaf2;
+  font: inherit;
+  cursor: pointer;
+}
+
+.service-tab:hover,
+.service-tab.active {
+  color: white;
+  background: #9d4f27;
+}
+
+.service-panel {
+  display: none;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  border: 1px solid #eadfce;
+  border-radius: 8px;
+  padding: 28px;
+  background: #fffaf2;
+}
+
+.service-panel.active {
+  display: grid;
+}
+
+.service-panel ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 22px;
+  color: #5f5348;
+}
+
+.portfolio-section {
+  background: white;
+}
+
+.portfolio-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.portfolio-grid article {
+  position: relative;
+  overflow: hidden;
+  min-height: 240px;
+  border-radius: 8px;
+  background: #2f281f;
+}
+
+.portfolio-grid img {
+  width: 100%;
+  height: 100%;
+  min-height: 240px;
+  object-fit: cover;
+  opacity: 0.82;
+}
+
+.portfolio-grid span {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #241b14;
+  background: #ffbd6b;
+  font-weight: 800;
+}
+
+.repair-types {
+  background: white;
+}
+
+.price-card {
+  border: 1px solid #eadfce;
+  border-radius: 8px;
+  padding: 24px;
+  background: #fffaf2;
+}
+
+.price-card strong {
+  display: block;
+  margin: 12px 0;
+  color: #9d4f27;
+  font-size: 26px;
+}
+
+.price-card ul {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0 0;
+  padding-left: 20px;
+}
+
+.accent-card {
+  border-color: #c87339;
+  background: #2f281f;
+  color: white;
+}
+
+.accent-card strong {
+  color: #ffcf9a;
 }
 
 .steps-section {
@@ -261,6 +432,94 @@ p {
   color: #ffbd6b;
   font-size: 32px;
   font-weight: 800;
+}
+
+.control-section {
+  background: white;
+}
+
+.control-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.control-grid div,
+.review-grid article,
+.materials-grid div,
+.faq-list details {
+  border: 1px solid #eadfce;
+  border-radius: 8px;
+  padding: 22px;
+  background: #fffaf2;
+}
+
+.materials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.comparison-section {
+  background: white;
+}
+
+.comparison-table-wrap {
+  overflow-x: auto;
+  border: 1px solid #eadfce;
+  border-radius: 8px;
+}
+
+.comparison-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  background: #fffaf2;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 16px 18px;
+  border-bottom: 1px solid #eadfce;
+  text-align: left;
+}
+
+.comparison-table th {
+  color: #2d241b;
+  background: #ffefd9;
+}
+
+.comparison-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.reviews-section {
+  background: white;
+}
+
+.review-grid article strong {
+  display: block;
+  margin-bottom: 10px;
+  color: #9d4f27;
+  font-size: 18px;
+}
+
+.faq-section {
+  background: #fffaf2;
+}
+
+.faq-list {
+  display: grid;
+  gap: 14px;
+  max-width: 900px;
+}
+
+.faq-list summary {
+  cursor: pointer;
+  color: #2d241b;
+  font-weight: 800;
+}
+
+.faq-list p {
+  margin: 14px 0 0;
 }
 
 .contact-section {
@@ -338,12 +597,48 @@ p {
 }
 
 .success-message {
+  display: grid;
+  gap: 4px;
   margin-bottom: 18px;
   border-radius: 6px;
   padding: 14px 16px;
   color: #194d2d;
   background: #e7f6ea;
   font-weight: 800;
+}
+
+.success-message span {
+  color: #245d37;
+  font-weight: 700;
+}
+
+.toast-success {
+  position: fixed;
+  top: 82px;
+  right: 24px;
+  z-index: 1050;
+  display: grid;
+  gap: 4px;
+  max-width: 360px;
+  border: 1px solid #acd7b5;
+  border-left: 5px solid #2e8b4d;
+  border-radius: 8px;
+  padding: 16px 18px;
+  color: #194d2d;
+  background: white;
+  box-shadow: 0 18px 42px rgba(38, 31, 24, 0.18);
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.toast-success.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast-success span {
+  color: #3c6048;
 }
 
 .form-bottom {
@@ -460,7 +755,12 @@ p {
   }
 
   .work-grid,
-  .service-grid,
+  .portfolio-grid,
+  .price-grid,
+  .control-grid,
+  .review-grid,
+  .materials-grid,
+  .trust-section,
   .steps {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -492,18 +792,37 @@ p {
   .section-block,
   .steps-section,
   .calculator-section,
+  .trust-section,
+  .control-section,
+  .faq-section,
+  .comparison-section,
   .contact-section,
   .admin-section {
     padding: 52px 24px;
   }
 
   .work-grid,
-  .service-grid,
+  .portfolio-grid,
+  .price-grid,
+  .control-grid,
+  .review-grid,
+  .materials-grid,
+  .trust-section,
   .steps {
     grid-template-columns: 1fr;
   }
 
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .service-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .toast-success {
+    left: 18px;
+    right: 18px;
+    max-width: none;
   }
 }
