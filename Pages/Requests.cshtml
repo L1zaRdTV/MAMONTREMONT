@@ -85,7 +85,7 @@
                         <p class="small-title">Новые заявки</p>
                         <h2 id="activeRequestsTitle">Нужно позвонить и уточнить детали</h2>
                     </div>
-                    <span>@activeRequests.Count</span>
+                    <span class="request-count">@activeRequests.Count</span>
                 </div>
 
                 @if (activeRequests.Count == 0)
@@ -106,32 +106,35 @@
                 }
             </section>
 
-            <section class="request-group archive-group" aria-labelledby="archiveRequestsTitle">
-                <div class="request-group-heading">
+            <details class="request-group archive-group" open>
+                <summary class="request-group-heading" aria-labelledby="archiveRequestsTitle">
+                    <span class="archive-toggle-icon" aria-hidden="true"></span>
                     <div>
                         <p class="small-title">Архив</p>
                         <h2 id="archiveRequestsTitle">Отработанные заявки</h2>
                     </div>
-                    <span>@archivedRequests.Count</span>
-                </div>
+                    <span class="request-count">@archivedRequests.Count</span>
+                </summary>
 
-                @if (archivedRequests.Count == 0)
-                {
-                    <div class="empty-state admin-empty compact-empty">
-                        <strong>Архив пуст</strong>
-                        <span>Нажмите «Отработана» после звонка клиенту, и заявка появится здесь.</span>
-                    </div>
-                }
-                else
-                {
-                    <div class="request-card-grid archive-card-grid">
-                        @foreach (var request in archivedRequests)
-                        {
-                            @await Html.PartialAsync("_RequestCard", request)
-                        }
-                    </div>
-                }
-            </section>
+                <div class="archive-content">
+                    @if (archivedRequests.Count == 0)
+                    {
+                        <div class="empty-state admin-empty compact-empty">
+                            <strong>Архив пуст</strong>
+                            <span>Нажмите «Отработана» после звонка клиенту, и заявка появится здесь.</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="request-card-grid archive-card-grid">
+                            @foreach (var request in archivedRequests)
+                            {
+                                @await Html.PartialAsync("_RequestCard", request)
+                            }
+                        </div>
+                    }
+                </div>
+            </details>
         </div>
     }
 </section>
