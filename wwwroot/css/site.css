@@ -229,24 +229,24 @@ p {
 h1 {
   max-width: 900px;
   margin-bottom: 24px;
-  font-size: clamp(3rem, 7vw, 6.8rem);
-  font-weight: 950;
-  line-height: 0.9;
-  letter-spacing: -0.055em;
+  font-size: clamp(3rem, 6.4vw, 6.1rem);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
 }
 
 h2 {
   margin-bottom: 18px;
-  font-size: clamp(2.1rem, 4vw, 4.2rem);
-  font-weight: 920;
-  line-height: 0.98;
-  letter-spacing: -0.045em;
+  font-size: clamp(2rem, 3.5vw, 3.65rem);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
 }
 
 h3 {
   font-size: 1.35rem;
-  font-weight: 880;
-  letter-spacing: -0.02em;
+  font-weight: 800;
+  letter-spacing: -0.01em;
 }
 
 p {
@@ -329,11 +329,14 @@ p {
 
 .hero-showcase {
   position: relative;
-  min-height: 430px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-content: center;
 }
 
 .showcase-card {
-  position: absolute;
+  position: relative;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: var(--radius-lg);
@@ -354,20 +357,13 @@ p {
 }
 
 .showcase-main {
-  inset: 26px 12px auto 20px;
+  grid-column: 1 / -1;
   min-height: 250px;
 }
 
-.showcase-price {
-  right: 0;
-  bottom: 34px;
-  width: 220px;
-}
-
+.showcase-price,
 .showcase-team {
-  left: 0;
-  bottom: 0;
-  width: 245px;
+  min-height: 142px;
 }
 
 .showcase-label,
@@ -384,8 +380,9 @@ p {
 .showcase-card strong {
   position: relative;
   display: block;
-  font-size: 1.7rem;
-  line-height: 1.05;
+  font-size: clamp(1.35rem, 2.1vw, 1.7rem);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
 }
 
 .showcase-card p {
@@ -680,14 +677,16 @@ p {
 }
 
 .portfolio-grid {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: stretch;
+  max-width: 1180px;
+  margin: 0 auto;
 }
 
 .portfolio-grid article {
   position: relative;
   display: grid;
-  min-height: clamp(220px, 24vw, 340px);
+  min-height: 260px;
   aspect-ratio: 4 / 3;
   background: var(--dark);
   isolation: isolate;
@@ -1127,22 +1126,7 @@ p {
   }
 
   .hero-showcase {
-    min-height: 320px;
-  }
-
-  .showcase-main {
-    inset: 0 auto auto 0;
-    width: min(620px, 100%);
-  }
-
-  .showcase-price {
-    right: 18%;
-    bottom: 0;
-  }
-
-  .showcase-team {
-    left: 8%;
-    bottom: 20px;
+    max-width: 720px;
   }
 
   .control-grid,
@@ -1233,6 +1217,10 @@ p {
     min-height: 0;
   }
 
+  .hero-showcase {
+    grid-template-columns: 1fr;
+  }
+
   .showcase-card,
   .showcase-main,
   .showcase-price,
@@ -1240,6 +1228,7 @@ p {
     position: relative;
     inset: auto;
     width: auto;
+    min-height: 0;
   }
 
   .admin-section h1 {
